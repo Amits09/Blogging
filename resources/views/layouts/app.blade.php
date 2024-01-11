@@ -6,7 +6,55 @@
     <!-- Additional stylesheets or scripts -->
 </head>
 <body>
-    <a class="nav-link" href="{{ route('posts.create') }}">Create Post</a>
+
+    {{-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <!-- Other navigation links -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('profile') }}">My Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('posts.create') }}">Create Post</a>
+                    </li>
+            </ul>
+            <form action="{{ route('logout') }}" method="post" class="nav-link">
+                @csrf
+                <button type="submit" class="btn btn-link ">Logout</button>
+            </form>
+            
+        </div>
+    </nav> --}}
+   
+    @auth
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+          <a class="navbar-brand" href="{{ route('profile') }}">My Profile</a>
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+              <a class="nav-link" href="{{ route('posts.index') }}">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('posts.create') }}">Create Post</a>
+            </li>
+          </ul>
+          <form action="{{ route('logout') }}" method="post" class="nav-link">
+            @csrf
+            <button type="submit" class="btn btn-sm btn-outline-secondary">Logout</button>
+        </form>
+
+        </div>
+      </nav>
+    @endauth
+
     <!-- Your content -->
     @yield('content')
     <!-- Bootstrap scripts -->

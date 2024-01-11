@@ -26,7 +26,7 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             // Authentication passed
             // You may customize the logic after successful login, like redirecting to a specific page
-            return redirect()->intended('/dashboard');
+            return redirect()->intended('/posts');
         }
 
         // Authentication failed
@@ -37,6 +37,6 @@ class LoginController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect('/');
+        return redirect('/login'); // Redirect to the home page or any other page after logout
     }
 }
