@@ -37,4 +37,6 @@ Route::middleware(['auth'])->group(function () {
 
     // Route for user profile
     Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+    Route::post('/posts/search', [PostController::class, 'searchPost'])->name('posts.search');
+    Route::get('/posts/category/{category}', [PostController::class, 'postByCategory'])->name('posts.bycategory'); 
 });

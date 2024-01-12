@@ -90,8 +90,9 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::latest()->paginate(10);
+        $categories = Category::all();
 
-        return view('posts.index', compact('posts'));
+        return view('posts.index', compact('posts','categories'));
     }
 
     public function show(Post $post)
@@ -113,5 +114,33 @@ class PostController extends Controller
         ]);
 
         return redirect()->route('posts.show', $post)->with('success', 'Comment added successfully!');
+    }
+
+    public function searchPost(Request $request)
+    {
+        $search = $request->input('search');
+        $posts = Post::when($search, function ($query) use ($search) {
+            return $query->where('title', 'like', '%' . $search . '%')
+                         ->orWhere('content', 'like', '%' . $search . '%');
+        })->paginate(10);
+        $categories = Category::all();
+
+        return view('posts.index', compact('posts','categories'));
+    }
+
+    public function postByCategory($categoryId)
+    {
+
+        // Retrieve all categories for the category dropdown
+        $categories = Category::all();
+
+        // Retrieve posts based on the selected category
+        $posts = Post::when($categoryId, function ($query) use ($categoryId) {
+            return $query->whereHas('categories', function ($query) use ($categoryId) {
+                $query->where('categories.id', $categoryId);
+            });
+        })->latest()->paginate(10);
+
+        return view('posts.index', compact('posts', 'categories', 'categoryId'));
     }
 }
