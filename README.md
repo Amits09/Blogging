@@ -15,6 +15,7 @@ A simple blogging platform built with **Laravel**
     ```bash
     cd Blogging
     composer install
+    php artisan migrate
     php artisan db:seed
     ```
 
